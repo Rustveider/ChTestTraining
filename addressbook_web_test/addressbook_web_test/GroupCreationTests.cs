@@ -21,7 +21,7 @@ namespace WebAddressbookTests
         public void SetupTest()
         {
             driver = new ChromeDriver();
-            baseURL = "http://localhost/addressbook";
+            baseURL = "http://localhost:8080/addressbook/";
             verificationErrors = new StringBuilder();
         }
 
