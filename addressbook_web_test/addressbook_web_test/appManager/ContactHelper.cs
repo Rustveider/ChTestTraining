@@ -12,11 +12,30 @@ namespace WebAddressbookTests
 {
     public class ContactHelper : HelperBase
     {
-        public ContactHelper(IWebDriver driver) : base(driver)
+        public ContactHelper(ApplicationManager manager) : base(manager)
         {
         }
-            
-            public void FillContractForm(DataContact group)
+        public ContactHelper ContactCreate(DataContact group)
+        {
+            manager.Navigator.GoToAddNew();
+            FillContractForm(group);
+            SubmitContactCreation();
+            ReturnToContactPage();
+            return this;
+        }
+        public ContactHelper DeleteContact(int v)
+        {
+            manager.Navigator.GoToHome();
+            SelectContact(v);
+            DeleteContact();
+            driver.SwitchTo().Alert().Accept();
+            ReturnToContactPage();
+            manager.Navigator.GoToHome();
+            return this;
+        }
+
+
+        public ContactHelper FillContractForm(DataContact group)
         {
             driver.FindElement(By.Name("firstname")).Click();
             driver.FindElement(By.Name("firstname")).Clear();
@@ -39,12 +58,32 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("address")).Click();
             driver.FindElement(By.Name("address")).Clear();
             driver.FindElement(By.Name("address")).SendKeys(group.Address);
+            return this;
         }
-
-        public void SubmitContactCreation()
+        public ContactHelper SubmitContactCreation()
         {
             driver.FindElement(By.XPath("(//input[@name='submit'])[2]")).Click();
+            return this;
         }
-    }
+
+        public ContactHelper SelectContact(int index)
+        {
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+            return this;
+        }
+        public ContactHelper DeleteContact()
+        {
+            driver.FindElement(By.XPath("//*[@id="content"]/form[2]/div[2]/input")).Click();
+
+
+            return this;
+        }
+        //
+        public ContactHelper ReturnToContactPage()
+        { 
+            driver.FindElement(By.LinkText("home page")).Click();
+            return this;
+        }
+}
     }
 

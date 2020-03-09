@@ -13,8 +13,8 @@ namespace WebAddressbookTests
     {
         private string baseURL;
 
-        public NavigationHelper(IWebDriver driver, string baseURL) 
-            : base(driver)
+        public NavigationHelper(ApplicationManager manager, string baseURL) 
+            : base(manager)
         {
             this.baseURL = baseURL;
         }
@@ -29,6 +29,10 @@ namespace WebAddressbookTests
         public void GoToAddNew()
         {
             driver.FindElement(By.LinkText("add new")).Click();
+        }
+        public void GoToHome()
+        {
+            driver.FindElement(By.LinkText("home")).Click();
         }
     }
 }
