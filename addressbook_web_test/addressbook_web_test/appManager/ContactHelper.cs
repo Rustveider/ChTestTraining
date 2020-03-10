@@ -28,12 +28,41 @@ namespace WebAddressbookTests
             manager.Navigator.GoToHome();
             SelectContact(v);
             DeleteContact();
-            driver.SwitchTo().Alert().Accept();
-            ReturnToContactPage();
+            AlertOk();
             manager.Navigator.GoToHome();
             return this;
         }
 
+        public ContactHelper ContactCreationTest(int v, DataContact newData)
+        {
+            manager.Navigator.GoToHome();
+            SelectContact(v);
+            ModificationContact();
+            FillContractForm(newData);
+            UpdateContactmodification();
+            ReturnToContactPage();
+
+            return this;
+            
+        }
+
+        public ContactHelper UpdateContactmodification()
+        {
+            driver.FindElement(By.Name("update")).Click();
+            return this;
+        }
+
+        public ContactHelper ModificationContact()
+        {
+            driver.FindElement(By.XPath("//img[@alt='Edit']")).Click();
+            return this;
+        }
+
+        public ContactHelper AlertOk()
+        {
+            driver.SwitchTo().Alert().Accept();
+            return this;
+        }
 
         public ContactHelper FillContractForm(DataContact group)
         {
@@ -73,12 +102,9 @@ namespace WebAddressbookTests
         }
         public ContactHelper DeleteContact()
         {
-            driver.FindElement(By.XPath("//*[@id="content"]/form[2]/div[2]/input")).Click();
-
-
+            driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
             return this;
         }
-        //
         public ContactHelper ReturnToContactPage()
         { 
             driver.FindElement(By.LinkText("home page")).Click();
