@@ -21,7 +21,7 @@ namespace WebAddressbookTests
             newData.Title = "ModificationTitleTest";
             newData.Company = "ModificationCompanyTest";
             newData.Address = "ModificationAddressTest";
-            app.Contact.CModificationTests(newData);
+            app.Contact.ContactModification(newData);
         }
     }
 }

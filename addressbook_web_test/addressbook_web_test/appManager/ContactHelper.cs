@@ -33,10 +33,10 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public ContactHelper CModificationTests (DataContact newData)
+        public ContactHelper ContactModification (DataContact newData)
         {
             manager.Navigator.GoToHome();
-            ModificationContact();
+            SubmitContactMod();
             FillContractForm(newData);
             UpdateContactmodification();
             ReturnToContactPage();
@@ -51,7 +51,7 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public ContactHelper ModificationContact()
+        public ContactHelper SubmitContactMod()
         {
             driver.FindElement(By.XPath("//img[@alt='Edit']")).Click();
             return this;
