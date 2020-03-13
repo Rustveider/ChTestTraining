@@ -33,10 +33,9 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public ContactHelper ContactCreationTest(int v, DataContact newData)
+        public ContactHelper CModificationTests (DataContact newData)
         {
             manager.Navigator.GoToHome();
-            SelectContact(v);
             ModificationContact();
             FillContractForm(newData);
             UpdateContactmodification();
@@ -44,7 +43,7 @@ namespace WebAddressbookTests
 
             return this;
             
-        }
+        } 
 
         public ContactHelper UpdateContactmodification()
         {

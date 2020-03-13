@@ -20,13 +20,5 @@ namespace WebAddressbookTests
             group.Footer = "FooterTest";
             app.Group.Create(group);
         }
-        [Test]
-        public void EmptyGroupCreationTest()
-        {
-            GroupData group = new GroupData("");
-            group.Header = "";
-            group.Footer = "";
-            app.Group.Create(group);
-        }
     }
 }

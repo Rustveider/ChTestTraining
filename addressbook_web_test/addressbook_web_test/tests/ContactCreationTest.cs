@@ -14,7 +14,7 @@ namespace WebAddressbookTests
         public void ContactCreationTest()
         {
             DataContact group = new DataContact();
-            group.Firstname = "FirstnameTest";
+            group.Firstname = "FirstnameTest4";
             group.Middlename = "MiddlenameTest";
             group.Lastname = "LastnameTest";
             group.Nickname = "NicknameTest";

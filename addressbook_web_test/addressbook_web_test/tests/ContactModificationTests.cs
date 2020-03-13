@@ -11,17 +11,17 @@ namespace WebAddressbookTests
     class ContactModificationTests : TestBase
     {
         [Test]
-        public void ContactCreationTest()
+        public void ContactModificationTest()
         {
             DataContact newData = new DataContact();
-            newData.Firstname = "ModificationFirstnameTest";
+            newData.Firstname = "ModificationFirstnameTest55";
             newData.Middlename = "ModificationMiddlenameTest";
             newData.Lastname = "ModificationLastnameTest";
             newData.Nickname = "ModificationNicknameTest";
             newData.Title = "ModificationTitleTest";
             newData.Company = "ModificationCompanyTest";
             newData.Address = "ModificationAddressTest";
-            app.Contact.ContactCreationTest(1, newData);
+            app.Contact.CModificationTests(newData);
         }
     }
 }
