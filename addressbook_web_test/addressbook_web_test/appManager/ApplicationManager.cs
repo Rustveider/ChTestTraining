@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -19,24 +20,19 @@ namespace WebAddressbookTests
         protected NavigationHelper navigator;
         protected GroupHelper groupHelper;
         protected ContactHelper contactHelper;
-        public ApplicationManager()
+
+        private static ThreadLocal<ApplicationManager> app = new ThreadLocal<ApplicationManager>();
+
+        private ApplicationManager()
         {
             driver = new ChromeDriver();
-            baseURL = "http://localhost:8080/addressbook/";
+            baseURL = "http://localhost/addressbook/";
             loginHelper = new LoginHelper(this);
             navigator = new NavigationHelper(this, baseURL);
             groupHelper = new GroupHelper(this);
             contactHelper = new ContactHelper(this);
         }
-        public IWebDriver Driver 
-        { 
-        get
-            {
-              return  driver;
-            }
-        }
-
-        public void Stop()
+        ~ApplicationManager()
         {
             try
             {
@@ -47,35 +43,49 @@ namespace WebAddressbookTests
                 // Ignore errors if unable to close the browser
             }
         }
-     public LoginHelper Auth
+        public static ApplicationManager GetInstance()
+        {
+            if (! app.IsValueCreated)
+            {
+                app.Value = new ApplicationManager();
+            }
+            return app.Value;
+        }
+        public IWebDriver Driver
         {
             get
             {
-                return loginHelper;
+                return driver;
             }
         }
-        public NavigationHelper Navigator
+        public LoginHelper Auth
+    {
+        get
         {
-            get
-            {
-                return navigator;
-            }
+            return loginHelper;
         }
-        public GroupHelper Group
-        {
-            get
-            {
-                return groupHelper;
-            }
-        }
-        public ContactHelper Contact
-        {
-            get
-            {
-                return contactHelper;
-            }
-        }
-
-
     }
-}
+    public NavigationHelper Navigator
+    {
+        get
+        {
+            return navigator;
+        }
+    }
+    public GroupHelper Group
+    {
+        get
+        {
+            return groupHelper;
+        }
+    }
+    public ContactHelper Contact
+    {
+        get
+        {
+            return contactHelper;
+        }
+    }
+    }
+    }
+
