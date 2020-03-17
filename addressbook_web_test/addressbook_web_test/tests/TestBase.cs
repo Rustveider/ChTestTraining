@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 
+
+
 namespace WebAddressbookTests
 {
    public class TestBase
@@ -15,6 +17,11 @@ namespace WebAddressbookTests
         public void SetupApplicationManager()
         {
            app = ApplicationManager.GetInstance();
+        }
+        [OneTimeTearDown]
+        public void CloseApplicationManager()
+        {
+            app.Dispose();
         }
     }
 }

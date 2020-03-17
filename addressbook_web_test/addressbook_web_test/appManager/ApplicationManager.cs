@@ -9,9 +9,10 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 
+
 namespace WebAddressbookTests
 {
-    public class ApplicationManager
+    public class ApplicationManager : IDisposable
     {
         protected IWebDriver driver;
         protected string baseURL;
@@ -26,22 +27,11 @@ namespace WebAddressbookTests
         private ApplicationManager()
         {
             driver = new ChromeDriver();
-            baseURL = "http://localhost/addressbook/";
+            baseURL = "http://localhost:8080/addressbook/";
             loginHelper = new LoginHelper(this);
             navigator = new NavigationHelper(this, baseURL);
             groupHelper = new GroupHelper(this);
             contactHelper = new ContactHelper(this);
-        }
-        ~ApplicationManager()
-        {
-            try
-            {
-                driver.Quit();
-            }
-            catch (Exception)
-            {
-                // Ignore errors if unable to close the browser
-            }
         }
         public static ApplicationManager GetInstance()
         {
@@ -53,6 +43,17 @@ namespace WebAddressbookTests
 
             }
             return app.Value;
+        }
+        public void Dispose()
+        {
+            try
+            {
+                driver.Quit();
+            }
+            catch (Exception)
+            {
+                // Ignore errors if unable to close the browser
+            }
         }
         public IWebDriver Driver
         {
