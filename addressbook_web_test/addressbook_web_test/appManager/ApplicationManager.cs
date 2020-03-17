@@ -12,7 +12,7 @@ using OpenQA.Selenium.Support.UI;
 
 namespace WebAddressbookTests
 {
-    public class ApplicationManager : IDisposable
+    public class ApplicationManager 
     {
         protected IWebDriver driver;
         protected string baseURL;
@@ -23,16 +23,19 @@ namespace WebAddressbookTests
         protected ContactHelper contactHelper;
 
         private static ThreadLocal<ApplicationManager> app = new ThreadLocal<ApplicationManager>();
-
+     
         private ApplicationManager()
         {
             driver = new ChromeDriver();
-            baseURL = "http://localhost:8080/addressbook/";
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3);
+            baseURL = "http://localhost/addressbook/";
+
             loginHelper = new LoginHelper(this);
             navigator = new NavigationHelper(this, baseURL);
             groupHelper = new GroupHelper(this);
             contactHelper = new ContactHelper(this);
         }
+
         public static ApplicationManager GetInstance()
         {
             if (! app.IsValueCreated)
@@ -44,7 +47,7 @@ namespace WebAddressbookTests
             }
             return app.Value;
         }
-        public void Dispose()
+        public void Stop()
         {
             try
             {
