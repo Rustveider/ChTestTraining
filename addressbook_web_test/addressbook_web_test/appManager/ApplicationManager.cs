@@ -47,7 +47,7 @@ namespace WebAddressbookTests
             }
             return app.Value;
         }
-        public void Stop()
+        public void Dispose()
         {
             try
             {
@@ -57,7 +57,7 @@ namespace WebAddressbookTests
             {
                 // Ignore errors if unable to close the browser
             }
-        }
+        } 
         public IWebDriver Driver
         {
             get

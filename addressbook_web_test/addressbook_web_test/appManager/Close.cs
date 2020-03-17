@@ -5,19 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 
-
-
 namespace WebAddressbookTests
 {
-   public class TestBase
+    [TestFixture]
+    public   class Close : TestBase
     {
-        protected ApplicationManager app;
-
-        [SetUp]
-        public void SetupApplicationManager()
+        [OneTimeTearDown]
+        public void CloseApplicationManager()
         {
-           app = ApplicationManager.GetInstance();
+            app.Dispose();
         }
-
     }
 }
