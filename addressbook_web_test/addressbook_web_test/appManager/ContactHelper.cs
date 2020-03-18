@@ -10,7 +10,7 @@ using OpenQA.Selenium.Support.UI;
 
 namespace WebAddressbookTests
 {
-    public class ContactHelper : HelperBase
+    public class ContactHelper : HelperBase 
     {
         public ContactHelper(ApplicationManager manager) : base(manager)
         {
@@ -25,6 +25,11 @@ namespace WebAddressbookTests
         }
         public ContactHelper DeleteContact(int v)
         {
+             if (! ContactMod())
+            {
+                DataContact group = new DataContact();
+                ContactCreate(group);
+            }
             manager.Navigator.GoToHome();
             SelectContact(v);
             DeleteContact();
@@ -33,8 +38,14 @@ namespace WebAddressbookTests
             return this;
         }
 
+
         public ContactHelper ContactModification (DataContact newData)
         {
+            if (!ContactMod())
+            {
+                DataContact group = new DataContact();
+                ContactCreate(group);
+            }
             manager.Navigator.GoToHome();
             SubmitContactMod();
             FillContractForm(newData);
@@ -95,6 +106,10 @@ namespace WebAddressbookTests
             driver.FindElement(By.LinkText("home page")).Click();
             return this;
         }
-}
+        private bool ContactMod()
+        {
+            return IsElementPresent(By.XPath("//img[@alt='Edit']"));
+        }
+    }
     }
 

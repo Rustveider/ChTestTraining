@@ -31,6 +31,12 @@ namespace WebAddressbookTests
         public GroupHelper Modify(int v, GroupData newData)
         {
             manager.Navigator.GoToGroupsPage();
+            //Сделать проверку на условие Не равно
+            if (! GroupMod(1))
+            {
+                GroupData group = new GroupData("hgf");
+                Create(group);
+            }
             SelectGroup(v);
             InitGroupModification();
             FillGroupForm(newData);
@@ -40,10 +46,14 @@ namespace WebAddressbookTests
             return this;
         }
 
-
         public GroupHelper RemoveGroup(int v)
         {
             manager.Navigator.GoToGroupsPage();
+            if (! GroupMod(1))
+            {
+                GroupData group = new GroupData("hgf");
+                Create(group);
+            }
             SelectGroup(v);
             RemoveGroup();
             ReturnToGroupsPage();
@@ -61,9 +71,6 @@ namespace WebAddressbookTests
             Type(By.Name("group_footer"), group.Footer);
             return this;
         }
-
-
-
         public GroupHelper SubmitGroupCreation()
         {
             driver.FindElement(By.Name("submit")).Click();
@@ -95,6 +102,12 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("edit")).Click();
             return this;
         }
+        
+         private bool GroupMod(int index)
+         {
+            return  IsElementPresent(By.XPath("(//input[@name='selected[]'])[" + index + "]"));
+        } 
+         
 
     }
 }
