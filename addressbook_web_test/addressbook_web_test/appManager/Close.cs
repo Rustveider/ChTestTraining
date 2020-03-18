@@ -7,13 +7,13 @@ using NUnit.Framework;
 
 namespace WebAddressbookTests
 {
-    [TestFixture]
-    public   class Close : TestBase
+    [SetUpFixture]
+    public   class Close 
     {
         [OneTimeTearDown]
         public void CloseApplicationManager()
         {
-            app.Dispose();
+            ApplicationManager.GetInstance().Dispose();
         }
     }
 }
