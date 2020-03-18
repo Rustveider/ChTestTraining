@@ -57,7 +57,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="appManager\Close.cs" />
     <Compile Include="appManager\ContactHelper.cs" />
     <Compile Include="tests\AuthTestBase.cs" />
     <Compile Include="tests\ContactModificationTests.cs" />

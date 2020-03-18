@@ -13,11 +13,20 @@ namespace WebAddressbookTests
     {
         protected ApplicationManager app;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void SetupApplicationManager()
         {
            app = ApplicationManager.GetInstance();
         }
 
+        [SetUpFixture]
+        public class Close
+        {
+            [OneTimeTearDown]
+            public void CloseApplicationManager()
+            {
+                ApplicationManager.GetInstance().Dispose();
+            }
+        }
     }
 }
