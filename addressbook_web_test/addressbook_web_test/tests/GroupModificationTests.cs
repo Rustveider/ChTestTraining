@@ -13,6 +13,7 @@ namespace WebAddressbookTests
         [Test]
         public void GroupModificationTest()
         {
+            app.Group.CheckeGroup(1);
             GroupData newData = new GroupData("AvtoModificationTest");
             newData.Header = null;
             newData.Footer = null;

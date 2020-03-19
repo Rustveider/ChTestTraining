@@ -12,12 +12,9 @@ namespace WebAddressbookTests
 {
     public class GroupHelper : HelperBase
     {
-        
-
         public GroupHelper(ApplicationManager manager) : base(manager)
         {
         }
-
         public GroupHelper Create(GroupData group)
         {
             manager.Navigator.GoToGroupsPage();
@@ -31,12 +28,6 @@ namespace WebAddressbookTests
         public GroupHelper Modify(int v, GroupData newData)
         {
             manager.Navigator.GoToGroupsPage();
-            //Сделать проверку на условие Не равно
-            if (! GroupMod(1))
-            {
-                GroupData group = new GroupData("hgf");
-                Create(group);
-            }
             SelectGroup(v);
             InitGroupModification();
             FillGroupForm(newData);
@@ -49,11 +40,6 @@ namespace WebAddressbookTests
         public GroupHelper RemoveGroup(int v)
         {
             manager.Navigator.GoToGroupsPage();
-            if (! GroupMod(1))
-            {
-                GroupData group = new GroupData("hgf");
-                Create(group);
-            }
             SelectGroup(v);
             RemoveGroup();
             ReturnToGroupsPage();
@@ -102,12 +88,19 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("edit")).Click();
             return this;
         }
-        
-         private bool GroupMod(int index)
-         {
-            return  IsElementPresent(By.XPath("(//input[@name='selected[]'])[" + index + "]"));
-        } 
-         
+        public void CheckeGroup(int v)
+        {
+            if (! GroupMod(1))
+            {
+                GroupData group = new GroupData("hgf");
+                Create(group);
+            }
+        }
 
+        public bool GroupMod(int index)
+         {
+            manager.Navigator.GoToGroupsPage();
+            return  IsElementPresent(By.XPath("(//input[@name='selected[]'])[" + index + "]"));
+        }
     }
 }

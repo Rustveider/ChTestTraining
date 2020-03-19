@@ -15,6 +15,7 @@ namespace WebAddressbookTests
         public ContactHelper(ApplicationManager manager) : base(manager)
         {
         }
+
         public ContactHelper ContactCreate(DataContact group)
         {
             manager.Navigator.GoToAddNew();
@@ -25,11 +26,6 @@ namespace WebAddressbookTests
         }
         public ContactHelper DeleteContact(int v)
         {
-             if (! ContactMod())
-            {
-                DataContact group = new DataContact();
-                ContactCreate(group);
-            }
             manager.Navigator.GoToHome();
             SelectContact(v);
             DeleteContact();
@@ -41,11 +37,6 @@ namespace WebAddressbookTests
 
         public ContactHelper ContactModification (DataContact newData)
         {
-            if (!ContactMod())
-            {
-                DataContact group = new DataContact();
-                ContactCreate(group);
-            }
             manager.Navigator.GoToHome();
             SubmitContactMod();
             FillContractForm(newData);
@@ -105,6 +96,15 @@ namespace WebAddressbookTests
         { 
             driver.FindElement(By.LinkText("home page")).Click();
             return this;
+        }
+
+        public void CheckeContact()
+        {
+            if (!ContactMod())
+            {
+                DataContact group = new DataContact();
+                ContactCreate(group);
+            }
         }
         private bool ContactMod()
         {
