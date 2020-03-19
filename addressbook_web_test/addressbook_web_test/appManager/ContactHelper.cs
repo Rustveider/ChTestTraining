@@ -100,16 +100,12 @@ namespace WebAddressbookTests
 
         public void CheckeContact()
         {
-            if (!ContactMod())
+            if (! IsElementPresent(By.XPath("//img[@alt='Edit']")))
             {
                 DataContact group = new DataContact();
                 ContactCreate(group);
             }
         }
-        private bool ContactMod()
-        {
-            return IsElementPresent(By.XPath("//img[@alt='Edit']"));
-        }
     }
-    }
+}
 

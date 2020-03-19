@@ -33,7 +33,6 @@ namespace WebAddressbookTests
             FillGroupForm(newData);
             SubmitGroupModification();
             ReturnToGroupsPage();
-
             return this;
         }
 
@@ -90,17 +89,11 @@ namespace WebAddressbookTests
         }
         public void CheckeGroup(int v)
         {
-            if (! GroupMod(1))
+            if (!IsElementPresent(By.XPath("(//input[@name='selected[]'])[" + v + "]")))
             {
                 GroupData group = new GroupData("hgf");
                 Create(group);
             }
-        }
-
-        public bool GroupMod(int index)
-         {
-            manager.Navigator.GoToGroupsPage();
-            return  IsElementPresent(By.XPath("(//input[@name='selected[]'])[" + index + "]"));
         }
     }
 }
