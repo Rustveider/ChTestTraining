@@ -10,7 +10,7 @@ using OpenQA.Selenium.Support.UI;
 
 namespace WebAddressbookTests
 {
-    public class ContactHelper : HelperBase 
+    public class ContactHelper : HelperBase
     {
         public ContactHelper(ApplicationManager manager) : base(manager)
         {
@@ -35,7 +35,7 @@ namespace WebAddressbookTests
         }
 
 
-        public ContactHelper ContactModification (DataContact newData)
+        public ContactHelper ContactModification(DataContact newData)
         {
             manager.Navigator.GoToHome();
             SubmitContactMod();
@@ -44,8 +44,8 @@ namespace WebAddressbookTests
             ReturnToContactPage();
 
             return this;
-            
-        } 
+
+        }
 
         public ContactHelper UpdateContactmodification()
         {
@@ -83,8 +83,8 @@ namespace WebAddressbookTests
         }
 
         public ContactHelper SelectContact(int index)
-        {
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+        {// Проверить тест и с ним связанные
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index + 1) + "]")).Click();
             return this;
         }
         public ContactHelper DeleteContact()
@@ -93,18 +93,31 @@ namespace WebAddressbookTests
             return this;
         }
         public ContactHelper ReturnToContactPage()
-        { 
+        {
             driver.FindElement(By.LinkText("home page")).Click();
             return this;
         }
 
         public void CheckeContact()
         {
-            if (! IsElementPresent(By.XPath("//img[@alt='Edit']")))
+            if (!IsElementPresent(By.XPath("//img[@alt='Edit']")))
             {
-                DataContact group = new DataContact();
+                DataContact group = new DataContact("Test");
                 ContactCreate(group);
             }
+        }
+        public List<DataContact> GetContactList()
+        {
+            List<DataContact> groups = new List<DataContact>();
+
+            manager.Navigator.GoToHome();
+
+            ICollection<IWebElement> elements = driver.FindElements(By.XPath("//tr[@name='entry']"));
+            foreach (IWebElement element in elements)
+            {
+                groups.Add(new DataContact(element.Text));
+            }
+            return groups;
         }
     }
 }

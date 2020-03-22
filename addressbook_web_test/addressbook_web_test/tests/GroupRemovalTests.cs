@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Collections.Generic;
 using System.Threading;
 using NUnit.Framework;
 
@@ -12,8 +13,17 @@ namespace WebAddressbookTests
         [Test]
         public void GroupRemovalTest()
         {
-            app.Group.CheckeGroup(1);  
-            app.Group.RemoveGroup(1);
+            //Проверка что есть группа для удаления
+            app.Group.CheckeGroup(0);
+
+            List<GroupData> oldgroups = app.Group.GetGroupList();
+
+            app.Group.RemoveGroup(0);
+
+            List<GroupData> newgroups = app.Group.GetGroupList();
+
+            oldgroups.RemoveAt(0);
+            Assert.AreEqual(oldgroups, newgroups);
         }
     }
 }

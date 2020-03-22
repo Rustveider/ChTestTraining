@@ -14,7 +14,16 @@ namespace WebAddressbookTests
         public void ContactFeleteTest()
         {
             app.Contact.CheckeContact();
-            app.Contact.DeleteContact(1);
+
+            List<DataContact> oldContacts = app.Contact.GetContactList();
+
+            app.Contact.DeleteContact(0);
+
+            List<DataContact> newContacts = app.Contact.GetContactList();
+
+            oldContacts.RemoveAt(0);
+            Assert.AreEqual(oldContacts, newContacts);
+
         }
     }
 }
