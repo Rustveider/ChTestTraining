@@ -18,12 +18,16 @@ namespace WebAddressbookTests
             GroupData newData = new GroupData("AvtoModificationTest");
             newData.Header = null;
             newData.Footer = null;
-            List<GroupData> oldgroups = app.Group.GetGroupList();
 
+            List<GroupData> oldGroups = app.Group.GetGroupList();
+           
             app.Group.Modify(1, newData);
            
             List<GroupData> newGroups = app.Group.GetGroupList();
-            Assert.AreEqual(oldgroups.Count, newGroups.Count);
+            oldGroups[0].Name = newData.Name;
+            oldGroups.Sort();
+            newGroups.Sort();
+            Assert.AreEqual(oldGroups.Count, newGroups.Count);
         }
 
     }

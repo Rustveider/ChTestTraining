@@ -11,18 +11,23 @@ namespace WebAddressbookTests
     public class GroupCreationTests : AuthTestBase
     {
         [Test]
-            public void GroupCreationTest()
-            {
-                GroupData group = new GroupData("AvtoTest");
-                group.Header = "HeaderTest";
-                group.Footer = "FooterTest";
+        public void GroupCreationTest()
+        {
+            GroupData group = new GroupData("AvtoTest");
+            group.Header = "HeaderTest";
+            group.Footer = "FooterTest";
 
-                List<GroupData> oldgroups = app.Group.GetGroupList();
-                app.Group.Create(group);
+            List<GroupData> oldGroups = app.Group.GetGroupList();
 
-                List<GroupData> newGroups = app.Group.GetGroupList();
-                Assert.AreEqual(oldgroups.Count + 1, newGroups.Count);
-            }
+            app.Group.Create(group);
+
+            List<GroupData> newGroups = app.Group.GetGroupList();
+            oldGroups.Add(group);
+            Assert.AreEqual(oldGroups, newGroups);
+            oldGroups.Sort();
+            newGroups.Sort();
+        }
+
         /* Тест проверки на баг
         [Test]
         public void BadGroupCreationTest()
@@ -31,11 +36,15 @@ namespace WebAddressbookTests
             group.Header = "HeaderTest";
             group.Footer = "FooterTest";
 
-            List<GroupData> oldgroups = app.Group.GetGroupList();
-            app.Group.Create(group);
+            List<GroupData> oldGroups = app.Group.GetGroupList();
+
+                app.Group.Create(group);
 
             List<GroupData> newGroups = app.Group.GetGroupList();
-            Assert.AreEqual(oldgroups.Count + 1, newGroups.Count);
+            oldGroups.Add(group);
+            Assert.AreEqual(oldGroups, newGroups);
+            oldGroups.Sort();
+            newGroups.Sort();
         } */
     }
 }
