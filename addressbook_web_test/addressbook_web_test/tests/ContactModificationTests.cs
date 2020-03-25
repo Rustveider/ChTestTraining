@@ -15,9 +15,9 @@ namespace WebAddressbookTests
         {
             app.Contact.CheckeContact();
 
-            DataContact newData = new DataContact("ModificationFirstnameTest55");
+            DataContact newData = new DataContact("ModificationFirstnameTest55", "ModificationLastnameTest");
             newData.Middlename = "ModificationMiddlenameTest";
-            newData.Lastname = "ModificationLastnameTest";
+           // newData.Lastname = "ModificationLastnameTest";
             newData.Nickname = "ModificationNicknameTest";
             newData.Title = "ModificationTitleTest";
             newData.Company = "ModificationCompanyTest";
@@ -28,6 +28,9 @@ namespace WebAddressbookTests
             app.Contact.ContactModification(newData);
 
             List<DataContact> newContacts = app.Contact.GetContactList();
+            oldContacts[0].Firstname = newData.Firstname;
+            oldContacts.Sort();
+            newContacts.Sort();
             Assert.AreEqual(oldContacts.Count, newContacts.Count);
         }
     }

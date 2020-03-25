@@ -10,16 +10,17 @@ namespace WebAddressbookTests
     {
         private string firstname;
         private string middlename = "";
-        private string lastname = "";
+        private string lastname;
         private string nickname = "";
         private string title = "";
         private string company = "";
        // private string address = "";
 
      
-        public DataContact(string firstname)
+        public DataContact(string firstname, string lastName)
         {
             this.firstname = firstname;
+            this.lastname = lastName;
         }
 
         public bool Equals(DataContact other)
@@ -42,7 +43,7 @@ namespace WebAddressbookTests
         }
         public override string ToString()
         {
-            return "Firstname = " + Lastname + " " + Firstname;
+            return "Firstname = " + Firstname + " " + Lastname;
         }
         public int CompareTo(DataContact other)
         {

@@ -14,10 +14,10 @@ namespace WebAddressbookTests
         [Test]
         public void ContactCreationTest()
         {
-            DataContact group = new DataContact("FirstnameTest4");
+            DataContact group = new DataContact("FirstnameTest4", "LastnameTest");
 
             group.Middlename = "MiddlenameTest";
-            group.Lastname = "LastnameTest";
+           // group.Lastname = "LastnameTest";
             group.Nickname = "NicknameTest";
             group.Title = "TitleTest";
             group.Company = "CompanyTest";

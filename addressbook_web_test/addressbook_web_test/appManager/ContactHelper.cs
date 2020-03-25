@@ -102,7 +102,7 @@ namespace WebAddressbookTests
         {
             if (!IsElementPresent(By.XPath("//img[@alt='Edit']")))
             {
-                DataContact group = new DataContact("Test");
+                DataContact group = new DataContact("Test", "LastnameTest");
                 ContactCreate(group);
             }
         }
@@ -115,7 +115,12 @@ namespace WebAddressbookTests
             ICollection<IWebElement> elements = driver.FindElements(By.XPath("//tr[@name='entry']"));
             foreach (IWebElement element in elements)
             {
-                groups.Add(new DataContact(element.Text));
+                var firstName = element.FindElements(By.XPath("./td"))[2].Text;
+                var lastName = element.FindElements(By.XPath("./td"))[1].Text;
+
+                DataContact contact = new DataContact(firstName, lastName);
+                groups.Add(contact);
+               // groups.Add(new DataContact(element.Text));
             }
             return groups;
         }
