@@ -21,7 +21,7 @@ namespace WebAddressbookTests
             newData.Nickname = "ModificationNicknameTest";
             newData.Title = "ModificationTitleTest";
             newData.Company = "ModificationCompanyTest";
-            newData.Address = "ModificationAddressTest";
+           // newData.Address = "ModificationAddressTest";
 
             List<DataContact> oldContacts = app.Contact.GetContactList();
 

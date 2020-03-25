@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WebAddressbookTests
 {
-    public class DataContact : IEquatable<DataContact>
+    public class DataContact : IEquatable<DataContact>, IComparable<DataContact>
     {
         private string firstname;
         private string middlename = "";
@@ -14,19 +14,9 @@ namespace WebAddressbookTests
         private string nickname = "";
         private string title = "";
         private string company = "";
-        private string address = "";
+       // private string address = "";
 
-      /*  public string Firstname
-        {
-            get
-            {
-                return firstname;
-            }
-            set
-            {
-                firstname = value;
-            }
-        } */
+     
         public DataContact(string firstname)
         {
             this.firstname = firstname;
@@ -42,9 +32,26 @@ namespace WebAddressbookTests
             {
                 return true;
             }
-            return Firstname == other.Firstname;
+            return Firstname == other.Firstname && Lastname == other.Lastname;
         }
+        public override int GetHashCode()
+        {
 
+            return Firstname.GetHashCode() + Lastname.GetHashCode();
+
+        }
+        public override string ToString()
+        {
+            return "Firstname = " + Lastname + " " + Firstname;
+        }
+        public int CompareTo(DataContact other)
+        {
+            if (Object.ReferenceEquals(other, null))
+            {
+                return 1;
+            }
+            return Firstname.CompareTo(other.Firstname);
+        }
         public string Firstname
         {
             get
@@ -112,7 +119,7 @@ namespace WebAddressbookTests
                 company = value;
             }
         }
-        public string Address
+        /* public string Address
         {
             get
             {
@@ -121,9 +128,7 @@ namespace WebAddressbookTests
             set
             {
                 address = value;
-            }
-        }
-
-
+            } 
+        } */
     }
 }

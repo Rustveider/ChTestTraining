@@ -21,7 +21,7 @@ namespace WebAddressbookTests
             group.Nickname = "NicknameTest";
             group.Title = "TitleTest";
             group.Company = "CompanyTest";
-            group.Address = "AddressTest";
+           // group.Address = "AddressTest";
             
 
             List<DataContact> oldContacts = app.Contact.GetContactList();
@@ -29,7 +29,12 @@ namespace WebAddressbookTests
             app.Contact.ContactCreate(group);
 
             List<DataContact> newContacts = app.Contact.GetContactList();
-            Assert.AreEqual(oldContacts.Count + 1, newContacts.Count);
+            oldContacts.Add(group);
+
+            Assert.AreEqual(oldContacts, newContacts);
+
+            oldContacts.Sort();
+            newContacts.Sort();
         }
         }
     }

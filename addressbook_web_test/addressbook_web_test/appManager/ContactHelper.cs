@@ -73,7 +73,7 @@ namespace WebAddressbookTests
             Type(By.Name("nickname"), group.Nickname);
             Type(By.Name("title"), group.Title);
             Type(By.Name("company"), group.Company);
-            Type(By.Name("address"), group.Address);
+            //Type(By.Name("address"), group.Address);
             return this;
         }
         public ContactHelper SubmitContactCreation()
