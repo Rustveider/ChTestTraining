@@ -31,10 +31,10 @@ namespace WebAddressbookTests
             List<DataContact> newContacts = app.Contact.GetContactList();
             oldContacts.Add(group);
 
-            Assert.AreEqual(oldContacts, newContacts);
-
             oldContacts.Sort();
             newContacts.Sort();
+            Assert.AreEqual(oldContacts, newContacts);
+
         }
         }
     }
