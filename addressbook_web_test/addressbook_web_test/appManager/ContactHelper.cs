@@ -79,6 +79,7 @@ namespace WebAddressbookTests
         public ContactHelper SubmitContactCreation()
         {
             driver.FindElement(By.XPath("(//input[@name='submit'])[2]")).Click();
+            contactCache = null;
             return this;
         }
 
@@ -90,6 +91,7 @@ namespace WebAddressbookTests
         public ContactHelper DeleteContact()
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            contactCache = null;
             return this;
         }
         public ContactHelper ReturnToContactPage()
@@ -106,7 +108,32 @@ namespace WebAddressbookTests
                 ContactCreate(group);
             }
         }
+        private List<DataContact> contactCache = null;
         public List<DataContact> GetContactList()
+        {
+            if (contactCache == null)
+            {
+                contactCache = new List<DataContact>();
+                manager.Navigator.GoToHome();
+
+                ICollection<IWebElement> elements = driver.FindElements(By.XPath("//tr[@name='entry']"));
+                foreach (IWebElement element in elements)
+                {
+                    var cells = element.FindElements(By.XPath("./td"));
+                    var firstName = cells[2].Text;
+                    var lastName = cells[1].Text;
+
+                    contactCache.Add(new DataContact(firstName, lastName));
+                }
+            }
+             return new List<DataContact>(contactCache);
+        }
+        public int GetContractCount()
+        {
+            return driver.FindElements(By.XPath("//tr[@name='entry']")).Count;
+        }
+
+        /*public List<DataContact> GetContactList()
         {
             List<DataContact> groups = new List<DataContact>();
 
@@ -121,10 +148,9 @@ namespace WebAddressbookTests
 
                 DataContact contact = new DataContact(firstName, lastName);
                 groups.Add(contact);
-               // groups.Add(new DataContact(element.Text));
             }
-            return groups;
-        }
+            return groups; 
+        } */
     }
 }
 
