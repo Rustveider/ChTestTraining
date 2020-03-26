@@ -115,8 +115,9 @@ namespace WebAddressbookTests
             ICollection<IWebElement> elements = driver.FindElements(By.XPath("//tr[@name='entry']"));
             foreach (IWebElement element in elements)
             {
-                var firstName = element.FindElements(By.XPath("./td"))[2].Text;
-                var lastName = element.FindElements(By.XPath("./td"))[1].Text;
+                var cells = element.FindElements(By.XPath("./td"));
+                var firstName = cells[2].Text;
+                var lastName = cells[1].Text;
 
                 DataContact contact = new DataContact(firstName, lastName);
                 groups.Add(contact);

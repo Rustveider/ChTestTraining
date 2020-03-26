@@ -16,14 +16,16 @@ namespace WebAddressbookTests
             //Проверка что есть группа для удаления
             app.Group.CheckeGroup(0);
 
-            List<GroupData> oldgroups = app.Group.GetGroupList();
+            List<GroupData> oldGroups = app.Group.GetGroupList();
 
             app.Group.RemoveGroup(0);
 
+            Assert.AreEqual(oldGroups.Count - 1, app.Group.GetGroupCount());
+
             List<GroupData> newgroups = app.Group.GetGroupList();
 
-            oldgroups.RemoveAt(0);
-            Assert.AreEqual(oldgroups, newgroups);
+            oldGroups.RemoveAt(0);
+            Assert.AreEqual(oldGroups, newgroups);
         }
     }
 }
