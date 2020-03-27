@@ -62,7 +62,7 @@ namespace WebAddressbookTests
 
             app.Group.Create(group);
 
-            Assert.AreEqual(oldGroups.Count + 1, app.Group.GetGroupCount());
+            Assert.AreEqual(oldGroups.Count, app.Group.GetGroupCount());
 
             List<GroupData> newGroups = app.Group.GetGroupList();
 

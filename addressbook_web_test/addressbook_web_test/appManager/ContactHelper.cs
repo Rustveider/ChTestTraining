@@ -24,6 +24,12 @@ namespace WebAddressbookTests
             ReturnToContactPage();
             return this;
         }
+
+        internal double GetContactCount()
+        {
+            throw new NotImplementedException();
+        }
+
         public ContactHelper DeleteContact(int v)
         {
             manager.Navigator.GoToHome();
@@ -97,6 +103,7 @@ namespace WebAddressbookTests
         public ContactHelper ReturnToContactPage()
         {
             driver.FindElement(By.LinkText("home page")).Click();
+            contactCache = null;
             return this;
         }
 
