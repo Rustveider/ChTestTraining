@@ -8,19 +8,15 @@ namespace WebAddressbookTests
 {
     public class DataContact : IEquatable<DataContact>, IComparable<DataContact>
     {
-        private string firstname;
-        private string middlename = "";
-        private string lastname;
-        private string nickname = "";
-        private string title = "";
-        private string company = "";
-       // private string address = "";
+        public DataContact(string firstname)
+        {
+            Firstname = firstname;
+        }
 
-     
         public DataContact(string firstname, string lastName)
         {
-            this.firstname = firstname;
-            this.lastname = lastName;
+            Firstname = firstname;
+            Lastname = lastName;
         }
 
         public bool Equals(DataContact other)
@@ -33,7 +29,7 @@ namespace WebAddressbookTests
             {
                 return true;
             }
-            return this.CompareTo(other) == 0;
+            return Firstname == other.Firstname && Lastname == other.Lastname;
         }
         public override int GetHashCode()
         {
@@ -43,7 +39,7 @@ namespace WebAddressbookTests
         }
         public override string ToString()
         {
-            return "Firstname = " + Firstname + " " + Lastname;
+            return "Firstname = " + Firstname + "; lastname = " + Lastname;
         }
         public int CompareTo(DataContact other)
         {
@@ -56,83 +52,12 @@ namespace WebAddressbookTests
 
             return Lastname.CompareTo(other.Lastname);
         }
-        public string Firstname
-        {
-            get
-            {
-                return firstname;
-            }
-            set
-            {
-                firstname = value;
-            }
-        }
-
-        public string Middlename
-        {
-            get
-            {
-                return middlename;
-            }
-            set
-            {
-                middlename = value;
-            }
-        }
-        public string Lastname
-        {
-            get
-            {
-                return lastname;
-            }
-            set
-            {
-                lastname = value;
-            }
-        }
-        public string Nickname
-        {
-            get
-            {
-                return nickname;
-            }
-            set
-            {
-                nickname = value;
-            }
-        }
-        public string Title
-        {
-            get
-            {
-                return title;
-            }
-            set
-            {
-                title = value;
-            }
-        }
-        public string Company
-        {
-            get
-            {
-                return company;
-            }
-            set
-            {
-                company = value;
-            }
-        }
-        /* public string Address
-        {
-            get
-            {
-                return address;
-            }
-            set
-            {
-                address = value;
-            } 
-        } */
+        public string Firstname { get; set; }
+        public string Middlename { get; set; }
+        public string Lastname { get; set; }
+        public string Nickname { get; set; }
+        public string Title { get; set; }
+        public string Company { get; set; }
+        public string IdContacts { get; set; }
     }
 }

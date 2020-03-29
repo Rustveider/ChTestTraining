@@ -11,7 +11,7 @@ namespace WebAddressbookTests
     public class ContactDeleteTests : AuthTestBase
     {
         [Test]
-        public void ContactFeleteTest()
+        public void ContactDeleteTest()
         {
             app.Contact.CheckeContact();
 
@@ -23,9 +23,14 @@ namespace WebAddressbookTests
 
             List<DataContact> newContacts = app.Contact.GetContactList();
 
+            DataContact toBeRemoved = oldContacts[0];
             oldContacts.RemoveAt(0);
             Assert.AreEqual(oldContacts, newContacts);
 
+            foreach (DataContact contacts in newContacts)
+           {
+                Assert.AreNotEqual(contacts.IdContacts, toBeRemoved.IdContacts);
+           }
         }
     }
 }

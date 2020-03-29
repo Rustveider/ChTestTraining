@@ -15,15 +15,16 @@ namespace WebAddressbookTests
         {
             app.Contact.CheckeContact();
 
-            DataContact newData = new DataContact("ModificationFirstnameTest55", "ModificationLastnameTest");
+            DataContact newData = new DataContact("ModificationFirstnameTest111");
             newData.Middlename = "ModificationMiddlenameTest";
-           // newData.Lastname = "ModificationLastnameTest";
+            newData.Lastname = null;
             newData.Nickname = "ModificationNicknameTest";
             newData.Title = "ModificationTitleTest";
             newData.Company = "ModificationCompanyTest";
            // newData.Address = "ModificationAddressTest";
 
             List<DataContact> oldContacts = app.Contact.GetContactList();
+            DataContact oldData = oldContacts[0];
 
             app.Contact.ContactModification(newData);
 
@@ -34,6 +35,14 @@ namespace WebAddressbookTests
             oldContacts.Sort();
             newContacts.Sort();
             Assert.AreEqual(oldContacts.Count, newContacts.Count);
+            
+            foreach (DataContact contact in newContacts)
+            {
+                if (contact.IdContacts == oldData.IdContacts)
+                {
+                    Assert.AreEqual(newData.Firstname, contact.Firstname);
+                }
+            }
         }
     }
 }

@@ -108,6 +108,7 @@ namespace WebAddressbookTests
             {
                 groupCache = new List<GroupData>();
                 manager.Navigator.GoToGroupsPage();
+
                 ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
                 foreach (IWebElement element in elements)
                 {

@@ -15,13 +15,14 @@ namespace WebAddressbookTests
         {
             app.Group.CheckeGroup(0);
 
-            GroupData newData = new GroupData("AvtoModificationTest");
+            GroupData newData = new GroupData("AvtoModificationTest3");
             newData.Header = null;
             newData.Footer = null;
 
             List<GroupData> oldGroups = app.Group.GetGroupList();
-           
-            app.Group.Modify(1, newData);
+            GroupData oldData = oldGroups[0];
+
+            app.Group.Modify(0, newData);
 
             Assert.AreEqual(oldGroups.Count, app.Group.GetGroupCount());
 
@@ -30,6 +31,14 @@ namespace WebAddressbookTests
             oldGroups.Sort();
             newGroups.Sort();
             Assert.AreEqual(oldGroups.Count, newGroups.Count);
+
+            foreach (GroupData group in newGroups)
+            {
+                if(group.Id == oldData.Id)
+                {
+                    Assert.AreEqual(newData.Name, group.Name);
+                }
+            }
         }
 
     }

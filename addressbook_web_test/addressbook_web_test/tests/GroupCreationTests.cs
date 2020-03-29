@@ -52,24 +52,24 @@ namespace WebAddressbookTests
         }
         // Тест проверки на баг
         [Test]
-        public void BadGroupCreationTest()
-        {
-            GroupData group = new GroupData("a 'a");
-            group.Header = "HeaderTest";
-            group.Footer = "FooterTest";
+          public void BadGroupCreationTest()
+          {
+              GroupData group = new GroupData("a 'a");
+              group.Header = "HeaderTest";
+              group.Footer = "FooterTest";
 
-            List<GroupData> oldGroups = app.Group.GetGroupList();
+              List<GroupData> oldGroups = app.Group.GetGroupList();
 
-            app.Group.Create(group);
+              app.Group.Create(group);
 
-            Assert.AreEqual(oldGroups.Count, app.Group.GetGroupCount());
+              Assert.AreEqual(oldGroups.Count, app.Group.GetGroupCount());
 
-            List<GroupData> newGroups = app.Group.GetGroupList();
+              List<GroupData> newGroups = app.Group.GetGroupList();
 
-            oldGroups.Add(group);
-            oldGroups.Sort();
-            newGroups.Sort();
-            Assert.AreEqual(oldGroups, newGroups);
-        } 
+              oldGroups.Add(group);
+              oldGroups.Sort();
+              newGroups.Sort();
+              Assert.AreNotEqual(oldGroups, newGroups);
+          } 
     }
 }

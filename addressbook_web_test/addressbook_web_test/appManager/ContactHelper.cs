@@ -25,11 +25,6 @@ namespace WebAddressbookTests
             return this;
         }
 
-        internal double GetContactCount()
-        {
-            throw new NotImplementedException();
-        }
-
         public ContactHelper DeleteContact(int v)
         {
             manager.Navigator.GoToHome();
@@ -50,12 +45,13 @@ namespace WebAddressbookTests
             ReturnToContactPage();
 
             return this;
-
         }
 
         public ContactHelper UpdateContactmodification()
         {
             driver.FindElement(By.Name("update")).Click();
+            //delete later
+            contactCache = null;
             return this;
         }
 
@@ -115,6 +111,7 @@ namespace WebAddressbookTests
                 ContactCreate(group);
             }
         }
+
         private List<DataContact> contactCache = null;
         public List<DataContact> GetContactList()
         {
@@ -127,14 +124,18 @@ namespace WebAddressbookTests
                 foreach (IWebElement element in elements)
                 {
                     var cells = element.FindElements(By.XPath("./td"));
-                    var firstName = cells[2].Text;
                     var lastName = cells[1].Text;
+                    var firstName = cells[2].Text;
 
-                    contactCache.Add(new DataContact(firstName, lastName));
-                }
-            }
+                    contactCache.Add(new DataContact(firstName, lastName)
+                {
+                    IdContacts = element.FindElement(By.TagName("input")).GetAttribute("value")
+                 });
+              }
+           }
              return new List<DataContact>(contactCache);
         }
+
         public int GetContractCount()
         {
             return driver.FindElements(By.XPath("//tr[@name='entry']")).Count;
