@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="appManager\ContactHelper.cs" />
     <Compile Include="tests\AuthTestBase.cs" />
+    <Compile Include="tests\ContactInformationTest.cs" />
     <Compile Include="tests\ContactModificationTests.cs" />
     <Compile Include="tests\ContactDeleteTests.cs" />
     <Compile Include="tests\GroupModificationTests.cs" />
