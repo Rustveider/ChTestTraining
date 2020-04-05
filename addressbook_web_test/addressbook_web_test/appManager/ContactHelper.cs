@@ -47,7 +47,6 @@ namespace WebAddressbookTests
 
             return this;
         }
-
         public ContactHelper UpdateContactmodification()
         {
             driver.FindElement(By.Name("update")).Click();
@@ -160,7 +159,7 @@ namespace WebAddressbookTests
             }
             return groups; 
         } */
-        public DataContact GetContractInformationFromTable(int index)
+        public DataContact GetContactInformationFromTable(int index)
         {
             manager.Navigator.GoToHomePage();
             IList<IWebElement> cells = driver.FindElements(By.Name("entry"))[index].FindElements(By.TagName("td"));
@@ -174,11 +173,11 @@ namespace WebAddressbookTests
             {
                 Address = address,
                 AllPhones = allPhones,
-                AllEmails = allEmail
+                AllEmails = allEmail,
             };
         }
 
-        public DataContact GetContractInformationFromEditForm(int index)
+        public DataContact GetContactInformationFromEditForm(int index)
         {
             manager.Navigator.GoToHomePage();
             InitContactModifition(0);
@@ -202,10 +201,29 @@ namespace WebAddressbookTests
                 WorkPhone = workPhone,
                 Email = email,
                 Email2 = email2,
-                Email3 = email3
+                Email3 = email3,
+                //Склейка данных со страницы редактирования контакта
+                allInformations = firstName + lastName + "\r\n" + address + "\r\n\r\n" + AdaptationPhone(homePhone) 
+                + AdaptationPhone(mobilePhone) + AdaptationPhone(workPhone) + "\r\n" + email + "\r\n" + email2 + "\r\n" + email3
             };
+            //Проверка телефонов для установки H: W: M:
+            string AdaptationPhone(string Phone)
+            {
+                if (Phone != "")
+                {
+                    if (Phone == homePhone || Phone == mobilePhone)
+                    {
+                        if(Phone == homePhone)
+                        {
+                            return "H:" + Phone + "\r\n";
+                        }
+                        return  "M:" + Phone + "\r\n";
+                    }
+                    return "W:" + Phone + "\r\n";
+                }
+                return Phone;
+            }
         }
-
         public void InitContactModifition(int index)
         {
             driver.FindElements(By.Name("entry"))[index]
@@ -216,9 +234,33 @@ namespace WebAddressbookTests
         {
             manager.Navigator.GoToHomePage();
             string text = driver.FindElement(By.TagName("label")).Text;
-           Match m = new Regex(@"\d+").Match(text);
+            Match m = new Regex(@"\d+").Match(text);
             return Int32.Parse(m.Value);
         }
+        //Склейка данных со страницы свойств контакта
+        public DataContact GetContactInformationFromDetailed(int index)
+        {
+            manager.Navigator.GoToHomePage();
+            InitContactDetailed(0);
+
+            string DetailedInformation = driver.FindElement(By.CssSelector("div#content")).Text;
+            string firstName = "";
+            string lastName = "";
+
+            return new DataContact(firstName, lastName)
+            {
+
+                allInformations  = DetailedInformation
+            };
+        }
+        //Переход на страницу свойств контакта
+        public void InitContactDetailed(int index)
+        {
+            driver.FindElements(By.Name("entry"))[index]
+                .FindElements(By.TagName("td"))[6]
+                .FindElement(By.TagName("a")).Click();
+        }
+
     }
 }
 

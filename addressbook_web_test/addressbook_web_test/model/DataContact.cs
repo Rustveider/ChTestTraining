@@ -11,6 +11,7 @@ namespace WebAddressbookTests
     {
         private string allPhones;
         private string allEmails;
+        private string AllInformations;
 
         public DataContact(string firstname)
         {
@@ -99,7 +100,7 @@ namespace WebAddressbookTests
             {
                 return "";
             }
-           return Regex.Replace(phone, "[ ()-]", "") + "\r\n";
+            return Regex.Replace(phone, "[ ()-]", "") + "\r\n";
         }
         public string AllEmails
         {
@@ -119,5 +120,26 @@ namespace WebAddressbookTests
                 allEmails = value;
             }
         }
-    }
- }
+        /* метод если нужно будет отдельно почистить email
+         private string CleanUpEmail(string email)
+         {
+             if (email == null || email == "")
+             {
+                 return "";
+             }
+             return email + "\r\n";
+         } */
+// метод для очистки данных от лишних скобок()-
+public string allInformations
+{
+   get
+   {
+       return (CleanUp(AllInformations)).Trim();
+   }
+   set
+   {
+       AllInformations = value;
+   }
+}
+}
+}
