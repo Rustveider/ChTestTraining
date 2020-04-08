@@ -31,7 +31,6 @@ namespace WebAddressbookTests
            // group.Middlename = "MiddlenameTest";
            // group.Lastname = "LastnameTest";
            // group.Nickname = "NicknameTest";
-            //group.Title = "TitleTest";
             //group.Company = "CompanyTest";
            // group.Address = "AddressTest";
             
