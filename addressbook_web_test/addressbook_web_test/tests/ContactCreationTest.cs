@@ -10,17 +10,29 @@ namespace WebAddressbookTests
     [TestFixture]
     public class ContactTests : AuthTestBase
     {
-
-        [Test]
-        public void ContactCreationTest()
+        public static IEnumerable<DataContact> RandomContactDataProvider()
         {
-            DataContact group = new DataContact("FirstnameTest1", "LastnameTest1");
+            List<DataContact> groups = new List<DataContact>();
+            for (int i = 0; i < 3; i++)
+            {
+                groups.Add(new DataContact(GenerateRandomString(30), GenerateRandomString(30))
+                {
+                    Middlename = GenerateRandomString(100),
+                    Nickname = GenerateRandomString(100)
+                });
+            }
+            return groups;
+        }
 
-            group.Middlename = "MiddlenameTest";
+        [Test, TestCaseSource("RandomContactDataProvider")]
+        public void ContactCreationTest(DataContact group)
+        {
+            //DataContact group = new DataContact("FirstnameTest1", "LastnameTest1");
+           // group.Middlename = "MiddlenameTest";
            // group.Lastname = "LastnameTest";
-            group.Nickname = "NicknameTest";
-            group.Title = "TitleTest";
-            group.Company = "CompanyTest";
+           // group.Nickname = "NicknameTest";
+            //group.Title = "TitleTest";
+            //group.Company = "CompanyTest";
            // group.Address = "AddressTest";
             
 
@@ -36,26 +48,26 @@ namespace WebAddressbookTests
             newContacts.Sort();
             Assert.AreEqual(oldContacts, newContacts);
         }
-        [Test]
-        public void EmptyContactsCreateTest()
-        {
-            DataContact contacts = new DataContact("");
-            contacts.Middlename = "";
-            contacts.Lastname = "";
+        /* [Test]
+         public void EmptyContactsCreateTest()
+         {
+             DataContact contacts = new DataContact("");
+             contacts.Middlename = "";
+             contacts.Lastname = "";
 
-            List<DataContact> oldContacts = app.Contact.GetContactList();
+             List<DataContact> oldContacts = app.Contact.GetContactList();
 
-            app.Contact.ContactCreate(contacts);
+             app.Contact.ContactCreate(contacts);
 
-            Assert.AreEqual(oldContacts.Count + 1, app.Contact.GetContractCount());
+             Assert.AreEqual(oldContacts.Count + 1, app.Contact.GetContractCount());
 
-            List<DataContact> newContacts = app.Contact.GetContactList();
-            oldContacts.Add(contacts);
-            oldContacts.Sort();
-            newContacts.Sort();
-            Assert.AreEqual(oldContacts, newContacts);
-        }
+             List<DataContact> newContacts = app.Contact.GetContactList();
+             oldContacts.Add(contacts);
+             oldContacts.Sort();
+             newContacts.Sort();
+             Assert.AreEqual(oldContacts, newContacts);
+         } */
 
     }
-    }
+}
 

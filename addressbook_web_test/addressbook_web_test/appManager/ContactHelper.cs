@@ -260,7 +260,6 @@ namespace WebAddressbookTests
                 .FindElements(By.TagName("td"))[6]
                 .FindElement(By.TagName("a")).Click();
         }
-
     }
 }
 

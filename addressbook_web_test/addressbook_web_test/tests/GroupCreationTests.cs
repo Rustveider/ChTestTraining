@@ -46,7 +46,7 @@ namespace WebAddressbookTests
             Assert.AreEqual(oldGroups, newGroups);
 
         }
-        [Test]
+       /* [Test]
         public void EmptyGroupCreationTest()
         {
             GroupData group = new GroupData("");
@@ -65,7 +65,7 @@ namespace WebAddressbookTests
             newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups);
 
-        }
+        }  */
         // Тест проверки на баг
         [Test]
           public void BadGroupCreationTest()

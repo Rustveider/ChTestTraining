@@ -16,11 +16,11 @@ namespace WebAddressbookTests
             app.Contact.CheckeContact();
 
             DataContact newData = new DataContact("ModificationFirstnameTest111");
-            newData.Middlename = "ModificationMiddlenameTest";
+           // newData.Middlename = "ModificationMiddlenameTest";
             newData.Lastname = null;
-            newData.Nickname = "ModificationNicknameTest";
-            newData.Title = "ModificationTitleTest";
-            newData.Company = "ModificationCompanyTest";
+            //newData.Nickname = "ModificationNicknameTest";
+           // newData.Title = "ModificationTitleTest";
+            //newData.Company = "ModificationCompanyTest";
            // newData.Address = "ModificationAddressTest";
 
             List<DataContact> oldContacts = app.Contact.GetContactList();
