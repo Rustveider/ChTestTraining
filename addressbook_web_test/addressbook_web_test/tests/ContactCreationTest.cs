@@ -19,16 +19,16 @@ namespace WebAddressbookTests
             List<DataContact> groups = new List<DataContact>();
             for (int i = 0; i < 3; i++)
             {
-                groups.Add(new DataContact(GenerateRandomString(30), GenerateRandomString(30))
+                groups.Add(new DataContact(GenerateRandomString(30)) //, GenerateRandomString(30) Вернуть обратно если тесты упадут
                 {
-                    Middlename = GenerateRandomString(100),
+                    Lastname = GenerateRandomString(100),
                     Nickname = GenerateRandomString(100)
                 });
             }
             return groups;
         }
 
-        public static IEnumerable<DataContact> GroupDataFromCsvFile()
+        public static IEnumerable<DataContact> ContactDataFromCsvFile()
         {
             List<DataContact> groups = new List<DataContact>();
             //чтение массива данных в файле и где он должен быть расположен
@@ -46,19 +46,19 @@ namespace WebAddressbookTests
             return groups;
         }
 
-        public static IEnumerable<DataContact> GroupDataFromXmlFile()
+        public static IEnumerable<DataContact> ContactDataFromXmlFile()
         {
             return (List<DataContact>)new XmlSerializer(typeof(List<DataContact>)).Deserialize
             (new StreamReader(Path.Combine(TestContext.CurrentContext.WorkDirectory, @"Contact.xml")));
         }
 
-        public static IEnumerable<GroupData> GroupDataFromJsonFile()
+        public static IEnumerable<DataContact> ContactDataFromJsonFile()
         {
-            return JsonConvert.DeserializeObject<List<GroupData>>(File.ReadAllText
-           (Path.Combine(TestContext.CurrentContext.WorkDirectory, @"Groups.json")));
+            return JsonConvert.DeserializeObject<List<DataContact>>(File.ReadAllText
+           (Path.Combine(TestContext.CurrentContext.WorkDirectory, @"Contact.json")));
         }
 
-        [Test, TestCaseSource("RandomContactDataProvider")]
+        [Test, TestCaseSource("ContactDataFromJsonFile")]
         public void ContactCreationTest(DataContact group)
         {
             //DataContact group = new DataContact("FirstnameTest1", "LastnameTest1");

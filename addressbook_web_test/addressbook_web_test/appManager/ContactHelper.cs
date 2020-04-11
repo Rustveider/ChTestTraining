@@ -107,7 +107,7 @@ namespace WebAddressbookTests
         {
             if (!IsElementPresent(By.XPath("//img[@alt='Edit']")))
             {
-                DataContact group = new DataContact("Test", "LastnameTest");
+                DataContact group = new DataContact("Test"); // , "LastnameTest" если что верни обрано за скобки
                 ContactCreate(group);
             }
         }
@@ -127,8 +127,8 @@ namespace WebAddressbookTests
                     var lastName = cells[1].Text;
                     var firstName = cells[2].Text;
 
-                    contactCache.Add(new DataContact(firstName, lastName)
-                {
+                    contactCache.Add(new DataContact(firstName) // , lastName верни обратно если тесты упадут
+                    {
                     IdContacts = element.FindElement(By.TagName("input")).GetAttribute("value")
                  });
               }
@@ -169,12 +169,22 @@ namespace WebAddressbookTests
             string allEmail = cells[4].Text;
             string allPhones = cells[5].Text;
 
-            return new DataContact(firstName, lastName)
+            return new DataContact(firstName)
             {
+                Lastname = lastName,
                 Address = address,
                 AllPhones = allPhones,
-                AllEmails = allEmail,
+                AllEmails = allEmail
             };
+
+
+
+            //return new DataContact(firstName, lastName)
+            //{
+            //    Address = address,
+            //    AllPhones = allPhones,
+            //    AllEmails = allEmail,
+            //};
         }
 
         public DataContact GetContactInformationFromEditForm(int index)
@@ -193,19 +203,37 @@ namespace WebAddressbookTests
             string email2 = driver.FindElement(By.Name("email2")).GetAttribute("value");
             string email3 = driver.FindElement(By.Name("email3")).GetAttribute("value");
 
-            return new DataContact(firstName, lastName)
+
+            return new DataContact(firstName)
             {
-                Address = address, 
-                HomePhone = homePhone, 
+                Lastname = lastName,
+                Address = address,
+                HomePhone = homePhone,
                 MobilePhone = mobilePhone,
                 WorkPhone = workPhone,
                 Email = email,
                 Email2 = email2,
                 Email3 = email3,
                 //Склейка данных со страницы редактирования контакта
-                allInformations = firstName + lastName + "\r\n" + address + "\r\n\r\n" + AdaptationPhone(homePhone) 
+                allInformations = firstName + lastName + "\r\n" + address + "\r\n\r\n" + AdaptationPhone(homePhone)
                 + AdaptationPhone(mobilePhone) + AdaptationPhone(workPhone) + "\r\n" + email + "\r\n" + email2 + "\r\n" + email3
             };
+
+
+
+            //return new DataContact(firstName, lastName) Вернуть обратно если тесты упадут
+            //{
+            //    Address = address, 
+            //    HomePhone = homePhone, 
+            //    MobilePhone = mobilePhone,
+            //    WorkPhone = workPhone,
+            //    Email = email,
+            //    Email2 = email2,
+            //    Email3 = email3,
+            //    //Склейка данных со страницы редактирования контакта
+            //    allInformations = firstName + lastName + "\r\n" + address + "\r\n\r\n" + AdaptationPhone(homePhone) 
+            //    + AdaptationPhone(mobilePhone) + AdaptationPhone(workPhone) + "\r\n" + email + "\r\n" + email2 + "\r\n" + email3
+            //};
             //Проверка телефонов для установки H: W: M:
             string AdaptationPhone(string Phone)
             {
@@ -245,9 +273,9 @@ namespace WebAddressbookTests
 
             string DetailedInformation = driver.FindElement(By.CssSelector("div#content")).Text;
             string firstName = "";
-            string lastName = "";
+            // string lastName = ""; Вернуть обратно если тесты упадут
 
-            return new DataContact(firstName, lastName)
+            return new DataContact(firstName) //, lastName Вернуть обратно если тесты упадут
             {
 
                 allInformations  = DetailedInformation

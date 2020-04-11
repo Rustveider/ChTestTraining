@@ -18,11 +18,11 @@ namespace WebAddressbookTests
             Firstname = firstname;
         }
 
-        public DataContact(string firstname, string lastName)
-        {
-            Firstname = firstname;
-            Lastname = lastName;
-        }
+        //public DataContact(string firstname, string lastName)
+        //{
+        //    Firstname = firstname;
+        //    Lastname = lastName;
+        //}
 
         public bool Equals(DataContact other)
         {
@@ -52,11 +52,24 @@ namespace WebAddressbookTests
             {
                 return 1;
             }
-            if (Lastname.CompareTo(other.Lastname) == 0)
-                return Firstname.CompareTo(other.Firstname);
-
-            return Lastname.CompareTo(other.Lastname);
+            if (this.Lastname == other.Lastname)
+            {
+                return this.Firstname.CompareTo(other.Lastname);
+            }
+            else
+                return other.Lastname.CompareTo(this.Lastname);
         }
+        //public int CompareTo(DataContact other)
+        //{
+        //    if (Object.ReferenceEquals(other, null))
+        //    {
+        //        return 1;
+        //    }
+        //    if (Lastname.CompareTo(other.Lastname) == 0)
+        //        return Firstname.CompareTo(other.Firstname);
+
+        //    return Lastname.CompareTo(other.Lastname);
+        //}
         public string Firstname { get; set; }
         public string Middlename { get; set; }
         public string Lastname { get; set; }
