@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
 using WebAddressbookTests;
 
 namespace addressbook_test_data_generators
@@ -16,7 +17,9 @@ namespace addressbook_test_data_generators
         {
            int count = Convert.ToInt32(args[0]);
            StreamWriter writer = new StreamWriter(args[1]);
-           string format = args[3];
+            //изменил args[3], так как тесты падали с ошибкой 
+            //в строке 20, Индекс находился вне границ массивашл
+            string format = args[2];
 
             List<GroupData> groups = new List<GroupData>();
             for (int i = 0; i < count; i ++)
@@ -40,6 +43,10 @@ namespace addressbook_test_data_generators
             {
                 writeGroupsToXmlFile(groups, writer);
             }
+            else if (format == "json")
+            {
+                writeGroupsToJsonFile(groups, writer);
+            }
             else
             {
                 System.Console.Write("Пиздец, не что то с " + format);
@@ -57,6 +64,10 @@ namespace addressbook_test_data_generators
         static void writeGroupsToXmlFile(List<GroupData> groups, StreamWriter writer)
         {
             new XmlSerializer(typeof(List<GroupData>)).Serialize(writer, groups);
+        }
+        static void writeGroupsToJsonFile(List<GroupData> groups, StreamWriter writer)
+        {
+            writer.Write(JsonConvert.SerializeObject(groups, Newtonsoft.Json.Formatting.Indented));
         }
     }
 }

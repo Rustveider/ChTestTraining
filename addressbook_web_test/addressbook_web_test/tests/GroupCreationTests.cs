@@ -7,6 +7,7 @@ using System.Threading;
 using NUnit.Framework;
 using System.Xml;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
 
 namespace WebAddressbookTests
 {
@@ -31,7 +32,7 @@ namespace WebAddressbookTests
         {
             List<GroupData> groups = new List<GroupData>();
             //чтение массива данных в файле и где он должен быть расположен
-            string[] lines = File.ReadAllLines(Path.Combine(TestContext.CurrentContext.WorkDirectory, @"groups.csv"));
+            string[] lines = File.ReadAllLines(Path.Combine(TestContext.CurrentContext.WorkDirectory, @"Groups.csv"));
             //string[] lines = File.ReadAllLines(@"groups.csv");
             foreach (string l in lines)
             {
@@ -64,8 +65,14 @@ namespace WebAddressbookTests
             } */
            // return groups;
         }
+        //Метод для чтения Json формата файлов
+        public static IEnumerable<GroupData> GroupDataFromJsonFile()
+        {
+            return JsonConvert.DeserializeObject<List<GroupData>>(File.ReadAllText
+           (Path.Combine(TestContext.CurrentContext.WorkDirectory, @"Groups.json")));
+        }
 
-        [Test, TestCaseSource("GroupDataFromXmlFile")]
+        [Test, TestCaseSource("GroupDataFromJsonFile")]
         public void GroupCreationTest(GroupData groups)
         {
             //удалить

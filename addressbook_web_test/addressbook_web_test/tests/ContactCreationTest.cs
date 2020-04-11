@@ -1,9 +1,13 @@
 ﻿using System;
+using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.Threading;
 using NUnit.Framework;
+using System.Xml;
+using System.Xml.Serialization;
+using Newtonsoft.Json;
 
 namespace WebAddressbookTests 
 {
@@ -24,6 +28,36 @@ namespace WebAddressbookTests
             return groups;
         }
 
+        public static IEnumerable<DataContact> GroupDataFromCsvFile()
+        {
+            List<DataContact> groups = new List<DataContact>();
+            //чтение массива данных в файле и где он должен быть расположен
+            string[] lines = File.ReadAllLines(Path.Combine(TestContext.CurrentContext.WorkDirectory, @"Contact.csv"));
+            //string[] lines = File.ReadAllLines(@"groups.csv");
+            foreach (string l in lines)
+            {
+                string[] parts = l.Split(',');
+                groups.Add(new DataContact(parts[0])
+                {
+                    Lastname = parts[1],
+                    Address = parts[2]
+                });
+            }
+            return groups;
+        }
+
+        public static IEnumerable<DataContact> GroupDataFromXmlFile()
+        {
+            return (List<DataContact>)new XmlSerializer(typeof(List<DataContact>)).Deserialize
+            (new StreamReader(Path.Combine(TestContext.CurrentContext.WorkDirectory, @"Contact.xml")));
+        }
+
+        public static IEnumerable<GroupData> GroupDataFromJsonFile()
+        {
+            return JsonConvert.DeserializeObject<List<GroupData>>(File.ReadAllText
+           (Path.Combine(TestContext.CurrentContext.WorkDirectory, @"Groups.json")));
+        }
+
         [Test, TestCaseSource("RandomContactDataProvider")]
         public void ContactCreationTest(DataContact group)
         {
@@ -34,7 +68,6 @@ namespace WebAddressbookTests
             //group.Company = "CompanyTest";
            // group.Address = "AddressTest";
             
-
             List<DataContact> oldContacts = app.Contact.GetContactList();
 
             app.Contact.ContactCreate(group);
