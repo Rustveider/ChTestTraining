@@ -13,6 +13,8 @@ namespace addressbook_test_data_generators
 {
     class Program
     {
+        public static string s;
+
         static void Main(string[] args)
         {
             int count = Convert.ToInt32(args[0]);
@@ -22,7 +24,8 @@ namespace addressbook_test_data_generators
             string format = args[2];
             List<DataContact> group = new List<DataContact>();
             List<GroupData> groups = new List<GroupData>();
-            if (count == 3)
+            if (count == 2)
+            //if (args[1] == "Contact")
             {
                 for (int i = 0; i < count; i++)
 
@@ -89,6 +92,7 @@ namespace addressbook_test_data_generators
                 }
             }
         }
+
         static void writeGroupsToCsvFile(List<GroupData> groups, StreamWriter writer)
         {
             foreach (GroupData group in groups)
