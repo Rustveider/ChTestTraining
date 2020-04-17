@@ -35,7 +35,15 @@ namespace WebAddressbookTests
             manager.Navigator.GoToHome();
             return this;
         }
-
+        public ContactHelper DeleteContactBD(DataContact contact)
+        {
+            manager.Navigator.GoToHome();
+            SelectContact(contact.IdContacts);
+            DeleteContact();
+            AlertOk();
+            manager.Navigator.GoToHome();
+            return this;
+        }
 
         public ContactHelper ContactModification(DataContact newData)
         {
@@ -90,6 +98,13 @@ namespace WebAddressbookTests
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index + 1) + "]")).Click();
             return this;
         }
+
+        public ContactHelper SelectContact(String IdContacts)
+        {// Проверить тест и с ним связанные
+            driver.FindElement(By.XPath("(//input[@name='selected[]' and @value='"+IdContacts+"'])")).Click();
+            return this;
+        }
+
         public ContactHelper DeleteContact()
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();

@@ -15,15 +15,15 @@ namespace WebAddressbookTests
         {
             app.Contact.CheckeContact();
 
-            List<DataContact> oldContacts = app.Contact.GetContactList();
+            List<DataContact> oldContacts = DataContact.GetAllContact();
+            DataContact toBeRemoved = oldContacts[0];
 
-            app.Contact.DeleteContact(0);
+            app.Contact.DeleteContactBD(toBeRemoved);
 
             Assert.AreEqual(oldContacts.Count - 1, app.Contact.GetContractCount());
 
-            List<DataContact> newContacts = app.Contact.GetContactList();
-
-            DataContact toBeRemoved = oldContacts[0];
+            List<DataContact> newContacts = DataContact.GetAllContact();
+           
             oldContacts.RemoveAt(0);
             Assert.AreEqual(oldContacts, newContacts);
 

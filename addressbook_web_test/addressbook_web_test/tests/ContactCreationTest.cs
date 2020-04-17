@@ -8,6 +8,7 @@ using NUnit.Framework;
 using System.Xml;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
+using System.Linq;
 
 namespace WebAddressbookTests 
 {
@@ -68,13 +69,13 @@ namespace WebAddressbookTests
             //group.Company = "CompanyTest";
            // group.Address = "AddressTest";
             
-            List<DataContact> oldContacts = app.Contact.GetContactList();
+            List<DataContact> oldContacts = DataContact.GetAllContact();
 
             app.Contact.ContactCreate(group);
 
             Assert.AreEqual(oldContacts.Count + 1, app.Contact.GetContractCount());
 
-            List<DataContact> newContacts = app.Contact.GetContactList();
+            List<DataContact> newContacts = DataContact.GetAllContact();
             oldContacts.Add(group);
             oldContacts.Sort();
             newContacts.Sort();
@@ -99,7 +100,19 @@ namespace WebAddressbookTests
              newContacts.Sort();
              Assert.AreEqual(oldContacts, newContacts);
          } */
+        [Test]
+        public void TestDBConnectivity()
+        {
+            DateTime start = DateTime.Now;
+            List<DataContact> fromUi = app.Contact.GetContactList();
+            DateTime end = DateTime.Now;
+            System.Console.Out.WriteLine(end.Subtract(start));
 
+            start = DateTime.Now;
+            List<DataContact> fromDB = DataContact.GetAllContact();
+            end = DateTime.Now;
+            System.Console.Out.WriteLine(end.Subtract(start));
+        }
     }
 }
 
