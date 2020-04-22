@@ -9,6 +9,7 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using System.Text.RegularExpressions;
 
+
 namespace WebAddressbookTests
 {
     public class ContactHelper : HelperBase
@@ -303,6 +304,58 @@ namespace WebAddressbookTests
                 .FindElements(By.TagName("td"))[6]
                 .FindElement(By.TagName("a")).Click();
         }
+        public void addContactToGroup(DataContact contact, GroupData group)
+        {
+            manager.Navigator.GoToHomePage();
+            ClearGroupFilter();
+            SelectContactToGroups(contact.IdContacts);
+            SelectContactToAdd(group.Name);
+            CommitAddingContactToGroup();
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10))
+                .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
+        }  
+
+        public void CommitAddingContactToGroup()
+        {
+            driver.FindElement(By.Name("add")).Click();
+        }
+
+        public void SelectContactToAdd(string name)
+        {
+         new SelectElement(driver.FindElement(By.Name("to_group"))).SelectByText(name);
+        }
+    
+        public void SelectContactToGroups(string idContacts)
+        {
+            driver.FindElement(By.Id(idContacts)).Click();
+        }
+
+        public void ClearGroupFilter()
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText("[all]");
+        }
+
+        public void DeleteContactFromFroup(DataContact contact, GroupData group)
+        {
+            manager.Navigator.GoToHomePage();
+            GroupFilter(group.Name);
+            SelectContactToGroups(contact.IdContacts);
+            SelectContactToAdd(group.Name);
+            RemoveContactFromGroup();
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10))
+                .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
+        }
+
+        public void GroupFilter(string name)
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText(name);
+        }
+
+        public void RemoveContactFromGroup()
+        {
+            driver.FindElement(By.Name("remove")).Click();
+        }
+
     }
 }
 

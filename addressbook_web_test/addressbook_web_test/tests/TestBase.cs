@@ -12,7 +12,7 @@ namespace WebAddressbookTests
    public class TestBase
     {
         //включает/отключает быстрые проверки после тестов
-        public static bool PERFORM_LONG_UI_CHECKS = false;
+        public static bool PERFORM_LONG_UI_CHECKS = true;
 
         protected ApplicationManager app;
 
