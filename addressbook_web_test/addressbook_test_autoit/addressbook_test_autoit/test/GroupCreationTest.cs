@@ -29,6 +29,8 @@ namespace addressbook_test_autoit
         [Test]
         public void TestGroupRemove()
         {
+            app.Groups.CheckeGroup();
+
             List<GroupData> oldGroups = app.Groups.GetGroupList();
 
             app.Groups.Delete(0);
