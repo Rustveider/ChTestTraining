@@ -44,7 +44,9 @@ namespace addressbook_test_autoit
         }
         internal void CheckeGroup()
         {
-           if( x == aux.ControlTreeView(GROUPWINTITLE, "", "WindowsForms10.SysTreeView32.app.0.2c908d51", "Exists", "#0|#", ""))
+            OpenGroupsDialog();
+            string nameGroups = aux.ControlTreeView(GROUPWINTITLE, "", "WindowsForms10.SysTreeView32.app.0.2c908d51", "GetText", "#0|#1", "");
+            if (nameGroups == "")
             {
                 Add(new GroupData()
                 {
