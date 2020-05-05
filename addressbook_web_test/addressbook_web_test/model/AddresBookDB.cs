@@ -15,7 +15,7 @@ namespace WebAddressbookTests
 
         public ITable<DataContact> Contacts { get { return GetTable<DataContact>(); } }
 
-        public ITable<GroupContactRelation> GCR { get { return GetTable<GroupContactRelation>(); } }
+        public ITable<GroupWithContact> GCR { get { return GetTable<GroupWithContact>(); } }
 
     }
 }

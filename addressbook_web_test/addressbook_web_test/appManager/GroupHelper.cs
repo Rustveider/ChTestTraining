@@ -155,5 +155,21 @@ namespace WebAddressbookTests
         {
            return driver.FindElements(By.CssSelector("span.group")).Count;
         }
+
+        public void CheckGroup()
+        {
+            if (IsElementPresent(By.Name("selected[]")))
+            {
+                return;
+            }
+
+            GroupData group = new GroupData("111");
+            group.Header = "aaa";
+            group.Footer = "bbb";
+            Create(group);
+
+            manager.Navigator.GoToGroupsPage();
+        }
+
     }
 }

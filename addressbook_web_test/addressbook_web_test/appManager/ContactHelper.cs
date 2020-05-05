@@ -356,6 +356,25 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("remove")).Click();
         }
 
+        public void CheckContacts()
+        {
+            if (IsElementPresent(By.XPath("//img[@alt='Edit']")))
+            {
+                return;
+            }
+
+            DataContact contact = new DataContact("test1");
+            ContactCreate(contact);
+
+            manager.Navigator.GoToHomePage();
+        }
+
+        public string GetContactId()
+        {
+            manager.Navigator.GoToHomePage();
+            return driver.FindElements(By.XPath("//tr/td/input[@name='selected[]']")).Last().GetAttribute("value");
+        }
+
     }
 }
 
