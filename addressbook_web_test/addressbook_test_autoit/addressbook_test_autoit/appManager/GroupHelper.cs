@@ -13,7 +13,6 @@ namespace addressbook_test_autoit
         public static string GROUPWINTITLE = "Group editor";
         public GroupHelper(ApplicationManager manager) : base(manager) { }
         List<GroupData> list = new List<GroupData>();
-        private string x = "1";
 
         public List<GroupData> GetGroupList()
         {
