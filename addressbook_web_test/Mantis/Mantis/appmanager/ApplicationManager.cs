@@ -34,6 +34,7 @@ namespace Mantis
             navigatorHelper = new NavigatorHelper(this);
             loginHelper = new LoginHelper(this);
             projectHelper = new ProjectHelper(this);
+            adminHelper = new AdminHelper(this, baseUrl);
         }
 
         ~ApplicationManager()
@@ -97,6 +98,6 @@ namespace Mantis
                 return navigatorHelper;
             }
         }
-        //public AdminHelper adminHelper { get; set; }
+        public AdminHelper adminHelper { get; set; }
     }
 }

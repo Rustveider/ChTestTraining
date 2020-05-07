@@ -17,7 +17,8 @@ namespace Mantis
             {
                 return;
             }
-            TelnetConnection telnet = LoginJames();
+            TelnetConnection telnet = new TelnetConnection("localhost", 4555);
+            LoginJames(telnet);
             telnet.WriteLine("adduser " + account.Name + " " + account.Password);
             System.Console.Out.WriteLine(telnet.Read());
         }
@@ -29,29 +30,35 @@ namespace Mantis
             {
                 return;
             }
-            TelnetConnection telnet = LoginJames();
-            telnet.WriteLine("deluser " + account.Name);
+            TelnetConnection telnet = new TelnetConnection("localhost", 4555);
+            LoginJames(telnet);
+            telnet.WriteLine("deluser " + account.Name + " " + account.Password);
             System.Console.Out.WriteLine(telnet.Read());
         }
 
         public bool Verify(AccountData account)
         {
-            TelnetConnection telnet = LoginJames();
-            telnet.WriteLine("verify " + account.Name);
-            String s = (telnet.Read());
+            TelnetConnection telnet = new TelnetConnection("localhost", 4555);
+            LoginJames(telnet);
+            telnet.WriteLine("verify " + account.Name + " " + account.Password);
+            String s = telnet.Read();
             System.Console.Out.WriteLine(s);
-            return ! s.Contains("does not exist");
+            return !s.Contains("does not exist");
+
+            //TelnetConnection telnet = LoginJames();
+            //telnet.WriteLine("verify " + account.Name);
+            //String s = (telnet.Read());
+            //System.Console.Out.WriteLine(s);
+            //return ! s.Contains("does not exist");
         }
 
-        private TelnetConnection LoginJames()
+        private void LoginJames(TelnetConnection telnet)
         {
-            TelnetConnection telnet = new TelnetConnection("localhost", 4555);
             System.Console.Out.WriteLine(telnet.Read());
             telnet.WriteLine("root");
             System.Console.Out.WriteLine(telnet.Read());
             telnet.WriteLine("root");
             System.Console.Out.WriteLine(telnet.Read());
-            return telnet;
         }
 
     }

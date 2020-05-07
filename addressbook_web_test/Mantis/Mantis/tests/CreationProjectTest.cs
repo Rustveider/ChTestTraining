@@ -13,7 +13,7 @@ namespace Mantis
         public static IEnumerable<ProjectData> RandomDataProvider()
         {
             List<ProjectData> project = new List<ProjectData>();
-            for (int i = 0; i < 1; i++)
+            for (int i = 0; i < 2; i++)
             {
                 project.Add(new ProjectData()
                 {
