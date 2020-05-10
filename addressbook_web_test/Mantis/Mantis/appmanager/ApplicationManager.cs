@@ -35,6 +35,7 @@ namespace Mantis
             loginHelper = new LoginHelper(this);
             projectHelper = new ProjectHelper(this);
             adminHelper = new AdminHelper(this, baseUrl);
+            API = new APIHelper(this);
         }
 
         ~ApplicationManager()
@@ -75,6 +76,9 @@ namespace Mantis
         public JamesHelper James { get; set; }
 
         public MailHelper Mail { get; set; }
+
+        internal APIHelper API { get; private set; }
+
 
         public LoginHelper Auth
         {
