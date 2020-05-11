@@ -15,22 +15,24 @@ namespace Mantis
         public ProjectHelper(ApplicationManager manager) : base(manager) { }
         private List<ProjectData> projectCache = null;
 
-        public List<ProjectData> GetAllFromUI()
+        public List<ProjectData> GetAllFromUI(AccountData account)
         {
             manager.Navigator.GoToProjectPage();
-            if (projectCache == null)
+
+            List<ProjectData> list = new List<ProjectData>();
+
+            Mantis.MantisConnectPortTypeClient client = new Mantis.MantisConnectPortTypeClient();
+            Mantis.ProjectData[] projects = client.mc_projects_get_user_accessible(account.Name, account.Password);
+            foreach (Mantis.ProjectData project in projects)
             {
-                projectCache = new List<ProjectData>();
-                IList<IWebElement> rows = driver.FindElements(By.CssSelector("td a"));
-                foreach (IWebElement row in rows)
+                list.Add(new ProjectData()
                 {
-                    projectCache.Add(new ProjectData()
-                    {
-                        Name = row.Text
-                    });
-                }
+                    Id = project.id,
+                    Name = project.name,
+                    Description = project.description
+                });
             }
-            return new List<ProjectData>(projectCache);
+            return list;
         }
 
         public void ProjectElementVerification()
@@ -42,7 +44,12 @@ namespace Mantis
                 {
                     Name = "test1"
                 };
-                Creation(project);
+                AccountData account = new AccountData()
+                            {
+                                Name = "administrator",
+                                Password = "password"
+                            };
+                Creation(account, project);
             }
         }
 
@@ -66,13 +73,12 @@ namespace Mantis
             driver.FindElement(By.CssSelector("td:nth-of-type(" + (toBeRemoved + 1) + ") > a")).Click();
         }
 
-        public void Creation(ProjectData project)
+        public void Creation(AccountData account, ProjectData projectData)
         {
-            manager.Navigator.GoToProjectPage();
-            InitProjectModification();
-            FillProjectModification(project);
-            SubmintProjectModification();
-            Thread.Sleep(3000);
+            Mantis.MantisConnectPortTypeClient client = new Mantis.MantisConnectPortTypeClient();
+            Mantis.ProjectData project = new Mantis.ProjectData();
+            project.name = projectData.Name;
+            client.mc_project_add(account.Name, account.Password, project);
         }
 
         private void SubmintProjectModification()
@@ -102,5 +108,9 @@ namespace Mantis
         {
             return IsElementPresent(By.CssSelector("td > a"));
         }
+
+
+
+
     }
 }

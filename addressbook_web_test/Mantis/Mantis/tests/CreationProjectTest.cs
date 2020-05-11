@@ -23,17 +23,31 @@ namespace Mantis
             return project;
         }
         [Test, TestCaseSource("RandomDataProvider")]
-        public void ProjectCreationTest(ProjectData project)
+        public void ProjectCreationTest()
         {
 
-            List<ProjectData> oldProjects = app.project.GetAllFromUI();
+            AccountData account = new AccountData()
+            {
+                Name = "administrator",
+                Password = "password"
+            };
+
+            ProjectData project = new ProjectData()
+            {
+                Name = "test1",
+                Description = "OneTest"
+            };
+
+            app.project.ProjectElementVerification();
+
+            List<ProjectData> oldProjects = app.project.GetAllFromUI(account);
         
-            app.project.Creation(project);
+            app.project.Creation(account, project);
 
             Thread.Sleep(3000);
             Assert.AreEqual(oldProjects.Count + 1, app.project.GetProjectCount());
 
-            List<ProjectData> newProjects = app.project.GetAllFromUI();
+            List<ProjectData> newProjects = app.project.GetAllFromUI(account);
 
             oldProjects.Add(project);
             oldProjects.Sort();
